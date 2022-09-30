@@ -1,14 +1,20 @@
 import { Formik } from "formik";
+import { useState } from "react";
 import Button from "../../base/Button";
 import Input from "../../base/Input";
 import ShadowDiv from "../../base/ShadowDiv";
 import Textarea from "../../base/Textarea";
 import { useQuestionMutation } from "./mutation";
+import Tags from "./Tags";
 
 const PostQuestion = () => {
   const mutation = useQuestionMutation();
+  const [tags, setTags] = useState<string[]>([]);
   return (
-    <Formik
+    <Formik<{
+      title: string;
+      content: string;
+    }>
       initialValues={{
         title: "",
         content: "",
@@ -25,8 +31,13 @@ const PostQuestion = () => {
 
         return errors;
       }}
-      onSubmit={(values) => {
-        mutation.mutate(values);
+      onSubmit={(values, { setSubmitting, resetForm }) => {
+        mutation.mutate(values, {
+          onSuccess: () => {
+            resetForm();
+          },
+        });
+        setSubmitting(false);
       }}
     >
       {({
@@ -72,18 +83,13 @@ const PostQuestion = () => {
                 <span className="text-xs text-red-600">{errors.content}</span>
               )}
             </label>
-            <label className="flex flex-col gap-1">
+            <div className="flex flex-col gap-1 select-text">
               <span className="font-bold text-md">Tags</span>
               <span className="text-xs">
                 Add up to 5 tags to describe what your question is about
               </span>
-              <Input
-                type="text"
-                name="tags"
-                onChange={handleChange}
-                onBlur={handleBlur}
-              />
-            </label>
+              <Tags tags={tags} setTags={setTags} />
+            </div>
           </ShadowDiv>
           <div className="mt-8">
             <Button

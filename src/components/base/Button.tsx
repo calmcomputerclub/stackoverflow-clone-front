@@ -1,27 +1,29 @@
+import { CSSObject } from "@emotion/react";
 import styled from "@emotion/styled";
-import type { CSSObject } from "@emotion/styled";
-import { css } from "@emotion/react";
+
+type Variants = "primary" | "secondary";
 
 interface ButtonProps {
-  variants?: "primary" | "secondary";
+  variants?: Variants;
 }
 
-// const variantsMap: Record<string, CSSObject> = {
-//   primary: {
-//     backgroundColor: "hsl(206,100%,52%)",
-//     color: "white",
-//     boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)",
-//     "&:hover": "#0074cc",
-//   },
-// };
-// padding: "0.8em",
-//       borderRadius: "3px",
-//       fontSize: "13px",
+const variants: Record<Variants, CSSObject> = {
+  primary: {
+    backgroundColor: "hsl(206, 100%, 52%)",
+    ":hover": {
+      backgroundColor: "#0074cc",
+    },
+    color: "white",
+    boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)",
+  },
+  secondary: {},
+};
 
-const primaryStyle = (props) => css``;
-
-const Button = styled.button<ButtonProps>``;
+const Button = styled.button<ButtonProps>((props) => ({
+  ...variants[props.variants ?? "primary"],
+  padding: "0.8em",
+  borderRadius: "3px",
+  fontSize: "13px",
+}));
 
 export default Button;
-
-// Object style

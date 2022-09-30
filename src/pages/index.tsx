@@ -6,7 +6,7 @@ const HomePage = () => {
     <div>
       <h1 className="text-6xl text-red-400">Stackoverflow</h1>
       <Link href="/questions/ask">
-        <Button>Ask Question</Button>
+        <Button variants="primary">Ask Question</Button>
       </Link>
     </div>
   );
