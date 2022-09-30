@@ -1,4 +1,6 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Formik } from "formik";
+import { useRouter } from "next/router";
 import { useState } from "react";
 import Button from "../../base/Button";
 import Input from "../../base/Input";
@@ -8,6 +10,8 @@ import { useQuestionMutation } from "./mutation";
 import Tags from "./Tags";
 
 const PostQuestion = () => {
+  const router = useRouter();
+  const quertClient = useQueryClient();
   const mutation = useQuestionMutation();
   const [tags, setTags] = useState<string[]>([]);
   return (
@@ -32,11 +36,19 @@ const PostQuestion = () => {
         return errors;
       }}
       onSubmit={(values, { setSubmitting, resetForm }) => {
-        mutation.mutate(values, {
-          onSuccess: () => {
-            resetForm();
+        mutation.mutate(
+          {
+            tags,
+            ...values,
           },
-        });
+          {
+            onSuccess: (data) => {
+              resetForm();
+              alert("Success!");
+              router.replace(`/questions/${data.id}`);
+            },
+          }
+        );
         setSubmitting(false);
       }}
     >

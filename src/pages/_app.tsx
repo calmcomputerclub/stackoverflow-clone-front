@@ -1,15 +1,16 @@
-import "../styles/globals.css";
-import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Appbar from "../components/ui/Appbar";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import type { AppProps } from "next/app";
+import "../styles/globals.css";
 
 const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
-      <Appbar />
+      {/* <Appbar /> */}
       <Component {...pageProps} />
+      <ReactQueryDevtools />
     </QueryClientProvider>
   );
 }

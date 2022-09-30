@@ -10,7 +10,12 @@ const QuestionList = () => {
   return (
     <ul className="px-6 pt-4 border-t border-t-gray-300">
       {questionQuery.data.map((q) => (
-        <QuestionSummary key={q.title} title={q.title} tags={q.tags} />
+        <QuestionSummary
+          id={q.id}
+          key={q.title}
+          title={q.title}
+          tags={q.tags}
+        />
       ))}
     </ul>
   );
@@ -19,13 +24,14 @@ const QuestionList = () => {
 export default QuestionList;
 
 interface QuestionSummaryProps {
+  id: number;
   title: string;
   tags: string[];
 }
-const QuestionSummary = ({ title, tags }: QuestionSummaryProps) => {
+const QuestionSummary = ({ title, tags, id }: QuestionSummaryProps) => {
   return (
     <li className="flex flex-col gap-1">
-      <Link href="/">
+      <Link href={`/questions/${id}`}>
         <div className="text-blue-600 text-md">{title}</div>
       </Link>
       <div className="flex flex-wrap gap-1">
