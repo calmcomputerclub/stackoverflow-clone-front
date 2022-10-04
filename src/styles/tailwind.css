@@ -11,6 +11,16 @@
   .grid-sm {
     grid-template-columns: 164px 1fr;
   }
+
+  .layout {
+    display: grid;
+    grid-template-rows: 47px 1fr;
+  }
+
+  .layout > .inner {
+    display: grid;
+    grid-template-columns: 164px 1fr;
+  }
 }
 
 /* Break points */

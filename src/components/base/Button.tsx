@@ -17,8 +17,17 @@ const variants: Record<Variant, CSSObject> = {
     },
     color: "white",
     boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)",
+    border: "1px solid hsl(206, 100%, 52%)",
   },
-  secondary: {},
+  secondary: {
+    backgroundColor: "hsl(205,46%,92%)",
+    ":hover": {
+      filter: "contrast(70%)",
+    },
+    color: "hsl(205,47%,42%)",
+    boxShadow: "inset 0 1px 0 0 hsl(0deg 0% 100% / 40%)",
+    border: "1px solid hsl(205,41%,63%)",
+  },
 };
 
 const sizes: Record<Size, CSSObject> = {
